@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
-    public Optional<Course> findCourseByCourseCode (Long courseCode);
-    public Optional<Course> getGradeByCourseCode (Long courseCode);
+public interface CourseRepository extends JpaRepository<Course, String> {
+    public Optional<Course> findByCourseCode (String courseCode);
+
 }

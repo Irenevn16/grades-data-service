@@ -22,36 +22,15 @@ public class CourseService {
     @Autowired
     private GradeRepository gradeRepository;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    public ResponseEntity<?> getCourseByCourseCode (Long courseCode) {
-        Optional<Course> course = courseRepository.findCourseByCourseCode(courseCode);
-
+    public ResponseEntity<?> findByCourseCode(String courseCode){
+        Optional<Course> course = courseRepository.findByCourseCode(courseCode);
         if(course.isPresent()) {
             Course response = course.get();
-
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    //esperar al tercer servicio
-    public ResponseEntity<?> getGradeByCourseCode (Long courseCode) {
-        Optional<Course> course = courseRepository.getGradeByCourseCode(courseCode);
 
-        if(course.isPresent()) {
-            CourseGradeDto grade = restTemplate.getForObject("http://grades-data-service/api/grade/" + course.get().g)
-
-            return new ResponseEntity<>(grade, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    /*
-     endpoint to get the grades
-       based on the course code.
-     */
 }
